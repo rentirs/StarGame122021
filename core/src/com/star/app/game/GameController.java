@@ -26,7 +26,7 @@ public class GameController {
         this.background = new Background(this);
         this.hero = new Hero(this);
         this.bulletController = new BulletController();
-        this.asteroidController = new AsteroidController(this);
+        this.asteroidController = new AsteroidController();
     }
 
     public void update(float dt) {
@@ -40,10 +40,13 @@ public class GameController {
     private void checkCollisions() {
         for (int i = 0; i < bulletController.getActiveList().size(); i++) {
             Bullet b = bulletController.getActiveList().get(i);
-//            Asteroid a = asteroidController.;
-//            if(a.getPosition().dst(b.getPosition()) < 32.0f){
-//                b.deactivate();
-//            }
+            for (int j = 0; j < asteroidController.getActiveList().size(); j++) {
+                Asteroid asteroid = asteroidController.getActiveList().get(i);
+                if (asteroid.getPosition().dst(b.getPosition()) < 128.0f) {
+                    asteroid.deactivate();
+                    b.deactivate();
+                }
+            }
         }
     }
 }
