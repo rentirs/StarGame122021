@@ -1,13 +1,41 @@
 package com.star.app.game;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.star.app.game.helpers.Poolable;
+import com.star.app.screen.ScreenManager;
+import com.star.app.screen.utils.Assets;
 
 public class Asteroid implements Poolable {
+    private GameController gameController;
+    private TextureRegion texture;
     private Vector2 position;
     private Vector2 velocity;
-    float scale;
     private boolean active;
+    private int hpMax;
+    private int hp;
+    private float angle;
+    private float rotationSpeed;
+    private Circle hitArea;
+    private float scale;
+
+    private final float BASE_SIZE = 256;
+    private final float BASE_RADIUS = BASE_SIZE / 2;
+
+    public int getHpMax() {
+        return hpMax;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public Circle getHitArea() {
+        return hitArea;
+    }
 
     @Override
     public boolean isActive() {
@@ -22,13 +50,37 @@ public class Asteroid implements Poolable {
         return velocity;
     }
 
-    public Asteroid() {
-//        this.position = new Vector2(ScreenManager.SCREEN_WIDTH, MathUtils.random(0, ScreenManager.SCREEN_HEIGHT));
-        this.position = new Vector2(0, 0);
-//        this.velocity = new Vector2(MathUtils.random(-4, -30), 0);
-        this.velocity = new Vector2(0, 0);
-//        this.scale = Math.abs(velocity.x) / 40f * 0.8f;
+    public Asteroid(GameController gameController) {
+        this.gameController = gameController;
+        this.texture = Assets.getInstance().getAtlas().findRegion("asteroid");
+        this.position = new Vector2();
+        this.velocity = new Vector2();
+        this.hitArea = new Circle();
         this.active = false;
+    }
+
+    public void render(SpriteBatch batch) {
+        batch.draw(texture, position.x - BASE_RADIUS, position.y - BASE_RADIUS,
+                BASE_RADIUS, BASE_RADIUS, BASE_SIZE, BASE_SIZE,
+                scale, scale, angle);
+    }
+
+    public boolean takeDamage(int amount) {
+        hp -= amount;
+        if (hp <= 0) {
+            deactivate();
+            if (scale > 0.3f) {
+                gameController.getAsteroidController().setup(position.x, position.y,
+                        MathUtils.random(-150, 150), MathUtils.random(-150, 150), -0.2f);
+                gameController.getAsteroidController().setup(position.x, position.y,
+                        MathUtils.random(-150, 150), MathUtils.random(-150, 150), -0.2f);
+                gameController.getAsteroidController().setup(position.x, position.y,
+                        MathUtils.random(-150, 150), MathUtils.random(-150, 150), -0.2f);
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void deactivate() {
@@ -37,14 +89,33 @@ public class Asteroid implements Poolable {
 
     public void update(float dt) {
         position.mulAdd(velocity, dt);
-        if (position.x < -128) {
-            deactivate();
+        angle += rotationSpeed * dt;
+        if (position.x < -BASE_RADIUS) {
+            position.x = ScreenManager.SCREEN_WIDTH + BASE_RADIUS;
         }
+        if (position.y < -BASE_RADIUS) {
+            position.y = ScreenManager.SCREEN_HEIGHT + BASE_RADIUS;
+        }
+        if (position.x > ScreenManager.SCREEN_WIDTH + BASE_RADIUS) {
+            position.x = -BASE_RADIUS;
+        }
+        if (position.y > ScreenManager.SCREEN_HEIGHT + BASE_RADIUS) {
+            position.y = -BASE_RADIUS;
+        }
+        hitArea.setPosition(position);
     }
 
-    public void activate(float x, float y, float vx, float vy) {
+    public void activate(float x, float y, float vx, float vy, float scale) {
         position.set(x, y);
         velocity.set(vx, vy);
         active = true;
+        hpMax = 3;
+        hp = hpMax;
+        angle = MathUtils.random(0.0f, 360.0f);
+        rotationSpeed = MathUtils.random(-180.0f, 180.0f);
+        this.scale = scale;
+        hitArea.setPosition(position);
+        hitArea.setRadius(BASE_RADIUS * scale * 1.3f);
+
     }
 }
