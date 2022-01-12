@@ -6,12 +6,11 @@ import com.star.app.game.WorldRendering;
 import com.star.app.screen.utils.Assets;
 
 public class GameScreen extends AbstractScreen{
-    private SpriteBatch batch;
     private GameController gc;
     private WorldRendering worldRendering;
 
     public GameScreen(SpriteBatch batch) {
-        this.batch = batch;
+        super(batch);
     }
 
     @Override
