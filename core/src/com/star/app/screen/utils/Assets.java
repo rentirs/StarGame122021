@@ -37,12 +37,19 @@ public class Assets {
         switch (type) {
             case GAME:
                 assetManager.load("images/game.pack", TextureAtlas.class);
+                createStandardFont(24);
                 createStandardFont(32);
                 break;
             case MENU:
                 assetManager.load("images/game.pack", TextureAtlas.class);
                 createStandardFont(72);
                 createStandardFont(24);
+                break;
+            case GAMEOVER:
+                assetManager.load("images/game.pack", TextureAtlas.class);
+                createStandardFont(24);
+                createStandardFont(48);
+                createStandardFont(72);
                 break;
         }
     }
