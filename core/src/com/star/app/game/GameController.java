@@ -93,6 +93,9 @@ public class GameController {
         if (!hero.isAlive()) {
             ScreenManager.getInstance().changeScreen(ScreenManager.ScreenType.GAMEOVER, hero);
         }
+        if (asteroidController.getActiveList().size() <= 0) {
+            ScreenManager.getInstance().changeScreen(ScreenManager.ScreenType.MENU);
+        }
         stage.act(dt);
     }
 
@@ -146,13 +149,15 @@ public class GameController {
 
         for (int i = 0; i < powerUpController.getActiveList().size(); i++) {
             PowerUp powerUp = powerUpController.getActiveList().get(i);
+            if (hero.getHitArea().overlaps(powerUp.getHitArea())) {
+                powerUp.getVelocity().set((hero.getPosition().x - powerUp.getPosition().x) * 2, (hero.getPosition().y - powerUp.getPosition().y) * 2);
+            }
             if (hero.getHitArea().contains(powerUp.getPosition())) {
                 hero.consume(powerUp);
                 particleController.getEffectBuilder().takePowerUpEffect(powerUp.getPosition().x,
                         powerUp.getPosition().y,
                         powerUp.getType());
                 powerUp.deactivate();
-
             }
         }
     }
