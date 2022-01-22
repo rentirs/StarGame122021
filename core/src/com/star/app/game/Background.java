@@ -36,10 +36,10 @@ public class Background {
         }
     }
 
-    private GameController gc;
-    private Texture textureCosmos;
-    private TextureRegion textureStar;
-    private Star[] stars;
+    private final GameController gc;
+    private final Texture textureCosmos;
+    private final TextureRegion textureStar;
+    private final Star[] stars;
 
     public Background(GameController gc) {
         this.gc = gc;

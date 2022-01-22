@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.star.app.game.helpers.ObjectPool;
 
 public class AsteroidController extends ObjectPool<Asteroid> {
-    private GameController gameController;
+    private final GameController gameController;
 
     @Override
     protected Asteroid newObject() {

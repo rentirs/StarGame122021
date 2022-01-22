@@ -8,11 +8,11 @@ import com.star.app.screen.ScreenManager;
 import com.star.app.screen.utils.Assets;
 
 public class WorldRendering {
-    private GameController gc;
-    private SpriteBatch batch;
-    private BitmapFont font32;
-    private BitmapFont font72;
-    private StringBuilder sb;
+    private final GameController gc;
+    private final SpriteBatch batch;
+    private final BitmapFont font32;
+    private final BitmapFont font72;
+    private final StringBuilder sb;
 
     public WorldRendering(GameController gc, SpriteBatch batch) {
         this.gc = gc;

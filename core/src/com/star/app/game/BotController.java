@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.star.app.game.helpers.ObjectPool;
 
 public class BotController extends ObjectPool<Bot> {
-    private GameController gameController;
+    private final GameController gameController;
 
     @Override
     protected Bot newObject() {

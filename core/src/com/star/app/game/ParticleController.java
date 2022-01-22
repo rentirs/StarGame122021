@@ -9,13 +9,6 @@ import com.star.app.screen.utils.Assets;
 
 public class ParticleController extends ObjectPool<Particle> {
     public class EffectBuilder {
-        public void buildMonsterSplash(float x, float y) {
-            for (int i = 0; i < 15; i++) {
-                float randomAngle = MathUtils.random(0, 6.28f);
-                float randomSpeed = MathUtils.random(0, 50.0f);
-                setup(x, y, (float) Math.cos(randomAngle) * randomSpeed, (float) Math.sin(randomAngle) * randomSpeed, 1.2f, 2.0f, 1.8f, 1, 0, 0, 1, 1, 0, 0, 0.2f);
-            }
-        }
 
         public void takePowerUpEffect(float x, float y, PowerUp.Type type) {
             switch (type) {
@@ -85,8 +78,8 @@ public class ParticleController extends ObjectPool<Particle> {
         }
     }
 
-    private TextureRegion oneParticle;
-    private EffectBuilder effectBuilder;
+    private final TextureRegion oneParticle;
+    private final EffectBuilder effectBuilder;
 
     public EffectBuilder getEffectBuilder() {
         return effectBuilder;

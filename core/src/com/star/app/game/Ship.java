@@ -66,31 +66,31 @@ public class Ship {
 
     private void createWeapons() {
         weapons = new Weapon[]{
-                new Weapon(gc, this, "Laser", 0.2f, 1, 300, 300,
+                new Weapon(gc, this, 0.2f, 1, 300, 300,
                         new Vector3[]{
                                 new Vector3(28, 90, 0),
                                 new Vector3(28, -90, 0)
                         }),
-                new Weapon(gc, this, "Laser", 0.2f, 1, 600, 500,
+                new Weapon(gc, this, 0.2f, 1, 600, 500,
                         new Vector3[]{
                                 new Vector3(28, 0, 0),
                                 new Vector3(28, 90, 20),
                                 new Vector3(28, -90, -20)
                         }),
-                new Weapon(gc, this, "Laser", 0.1f, 1, 600, 1000,
+                new Weapon(gc, this, 0.1f, 1, 600, 1000,
                         new Vector3[]{
                                 new Vector3(28, 0, 0),
                                 new Vector3(28, 90, 20),
                                 new Vector3(28, -90, -20)
                         }),
-                new Weapon(gc, this, "Laser", 0.1f, 2, 600, 1000,
+                new Weapon(gc, this, 0.1f, 2, 600, 1000,
                         new Vector3[]{
                                 new Vector3(28, 90, 0),
                                 new Vector3(28, -90, 0),
                                 new Vector3(28, 90, 15),
                                 new Vector3(28, -90, -15)
                         }),
-                new Weapon(gc, this, "Laser", 0.1f, 3, 600, 1500,
+                new Weapon(gc, this, 0.1f, 3, 600, 1500,
                         new Vector3[]{
                                 new Vector3(28, 0, 0),
                                 new Vector3(28, 90, 10),

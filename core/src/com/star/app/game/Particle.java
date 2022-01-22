@@ -4,8 +4,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.star.app.game.helpers.Poolable;
 
 public class Particle implements Poolable {
-    private Vector2 position;
-    private Vector2 velocity;
+    private final Vector2 position;
+    private final Vector2 velocity;
     private float r1, g1, b1, a1;
     private float r2, g2, b2, a2;
 
@@ -15,10 +15,6 @@ public class Particle implements Poolable {
 
     public Vector2 getPosition() {
         return position;
-    }
-
-    public Vector2 getVelocity() {
-        return velocity;
     }
 
     public float getR1() {

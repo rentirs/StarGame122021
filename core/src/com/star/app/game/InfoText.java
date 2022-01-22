@@ -6,12 +6,12 @@ import com.star.app.game.helpers.Poolable;
 
 public class InfoText implements Poolable {
     private Color color;
-    private StringBuilder text;
+    private final StringBuilder text;
     private boolean active;
-    private Vector2 position;
-    private Vector2 velocity;
+    private final Vector2 position;
+    private final Vector2 velocity;
     private float time;
-    private float maxTime;
+    private final float maxTime;
 
     @Override
     public boolean isActive() {
@@ -28,10 +28,6 @@ public class InfoText implements Poolable {
 
     public Color getColor() {
         return color;
-    }
-
-    public float getLifetime() {
-        return time / maxTime;
     }
 
     public InfoText() {

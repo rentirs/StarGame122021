@@ -12,12 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.star.app.screen.utils.Assets;
 
 public class Shop extends Group {
-    private Hero hero;
-    private BitmapFont bitmapFont;
 
     public Shop(final Hero hero) {
-        this.hero = hero;
-        this.bitmapFont = Assets.getInstance().getAssetManager().get("fonts/font24.ttf");
+        BitmapFont bitmapFont = Assets.getInstance().getAssetManager().get("fonts/font24.ttf");
         Pixmap pixmap = new Pixmap(400, 400, Pixmap.Format.RGB888);
         pixmap.setColor(0, 0, 0.5f, 1);
         pixmap.fill();

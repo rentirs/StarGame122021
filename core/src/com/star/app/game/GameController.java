@@ -12,21 +12,20 @@ import com.star.app.screen.ScreenManager;
 import com.star.app.screen.utils.Assets;
 
 public class GameController {
-    private Background background;
-    private BulletController bulletController;
-    private AsteroidController asteroidController;
-    private Hero hero;
-    private Vector2 tempVector;
-    private ParticleController particleController;
-    private PowerUpController powerUpController;
-    private InfoController infoController;
-    private BotController botController;
-    private Stage stage;
+    private final Background background;
+    private final BulletController bulletController;
+    private final AsteroidController asteroidController;
+    private final Hero hero;
+    private final Vector2 tempVector;
+    private final ParticleController particleController;
+    private final PowerUpController powerUpController;
+    private final InfoController infoController;
+    private final BotController botController;
+    private final Stage stage;
     private boolean pause;
     private int level;
     private float timer;
-    private Music music;
-    private StringBuilder stringBuilder;
+    private final StringBuilder stringBuilder;
 
     public BotController getBotController() {
         return botController;
@@ -81,9 +80,9 @@ public class GameController {
     }
 
     public GameController(SpriteBatch batch) {
-        this.music = Assets.getInstance().getAssetManager().get("audio/mortal.mp3");
-        this.music.setLooping(true);
-        this.music.play();
+        Music music = Assets.getInstance().getAssetManager().get("audio/mortal.mp3");
+        music.setLooping(true);
+        music.play();
         this.level = 1;
         this.background = new Background(this);
         this.hero = new Hero(this);
@@ -91,7 +90,7 @@ public class GameController {
         this.asteroidController = new AsteroidController(this);
         this.tempVector = new Vector2();
         this.particleController = new ParticleController();
-        this.powerUpController = new PowerUpController(this);
+        this.powerUpController = new PowerUpController();
         this.infoController = new InfoController();
         this.botController = new BotController(this);
         this.stage = new Stage(ScreenManager.getInstance().getViewport(), batch);
@@ -145,40 +144,10 @@ public class GameController {
     private void checkCollisions() {
         for (int i = 0; i < asteroidController.getActiveList().size(); i++) {
             Asteroid asteroid = asteroidController.getActiveList().get(i);
-            if (asteroid.getHitArea().overlaps(hero.getHitArea())) {
-                float dst = asteroid.getPosition().dst(hero.getPosition());
-                float halfOverLen = (asteroid.getHitArea().radius + hero.getHitArea().radius - dst) / 2;
-                tempVector.set(hero.getPosition()).sub(asteroid.getPosition()).nor();
-                hero.getPosition().mulAdd(tempVector, halfOverLen);
-                asteroid.getPosition().mulAdd(tempVector, -halfOverLen);
-                float sumScl = hero.getHitArea().radius + asteroid.getHitArea().radius;
-                hero.getVelocity().mulAdd(tempVector, asteroid.getHitArea().radius / sumScl * 100);
-                asteroid.getVelocity().mulAdd(tempVector, -hero.getHitArea().radius / sumScl * 100);
-
-                if (asteroid.takeDamage(2)) {
-                    hero.addScore(asteroid.getHpMax() * 50);
-                }
-                hero.takeDamage(level * 2);
-                stringBuilder.setLength(0);
-                stringBuilder.append("HP - ").append(level * 2);
-                infoController.setup(hero.getPosition().x, hero.getPosition().y, stringBuilder.toString(), Color.RED);
-            }
-        }
-
-        for (int i = 0; i < asteroidController.getActiveList().size(); i++) {
-            Asteroid asteroid = asteroidController.getActiveList().get(i);
+            asteroidPushAway(asteroid, hero);
             for (int j = 0; j < botController.getActiveList().size(); j++) {
                 Bot bot = botController.getActiveList().get(j);
-                if(asteroid.getHitArea().overlaps(bot.getHitArea())) {
-                    float dst = asteroid.getPosition().dst(bot.getPosition());
-                    float halfOverLen = (asteroid.getHitArea().radius + bot.getHitArea().radius - dst) / 2;
-                    tempVector.set(bot.getPosition()).sub(asteroid.getPosition()).nor();
-                    bot.getPosition().mulAdd(tempVector, halfOverLen);
-                    asteroid.getPosition().mulAdd(tempVector, -halfOverLen);
-                    float sumScl = bot.getHitArea().radius + asteroid.getHitArea().radius;
-                    bot.getVelocity().mulAdd(tempVector, asteroid.getHitArea().radius / sumScl * 100);
-                    asteroid.getVelocity().mulAdd(tempVector, -bot.getHitArea().radius / sumScl * 100);
-                }
+                asteroidPushAway(asteroid, bot);
             }
         }
 
@@ -237,6 +206,28 @@ public class GameController {
                 }
             }
         }
+    }
+
+    public void asteroidPushAway(Asteroid asteroid, Ship ship) {
+            if (asteroid.getHitArea().overlaps(ship.getHitArea())) {
+                float dst = asteroid.getPosition().dst(ship.getPosition());
+                float halfOverLen = (asteroid.getHitArea().radius + ship.getHitArea().radius - dst) / 2;
+                tempVector.set(ship.getPosition()).sub(asteroid.getPosition()).nor();
+                ship.getPosition().mulAdd(tempVector, halfOverLen);
+                asteroid.getPosition().mulAdd(tempVector, -halfOverLen);
+                float sumScl = ship.getHitArea().radius + asteroid.getHitArea().radius;
+                ship.getVelocity().mulAdd(tempVector, asteroid.getHitArea().radius / sumScl * 100);
+                asteroid.getVelocity().mulAdd(tempVector, -ship.getHitArea().radius / sumScl * 100);
+                if (ship.getOwnerType().equals(OwnerType.PLAYER)) {
+                    if (asteroid.takeDamage(2)) {
+                        hero.addScore(asteroid.getHpMax() * 50);
+                    }
+                    hero.takeDamage(level * 2);
+                    stringBuilder.setLength(0);
+                    stringBuilder.append("HP - ").append(level * 2);
+                    infoController.setup(hero.getPosition().x, hero.getPosition().y, stringBuilder.toString(), Color.RED);
+                }
+            }
     }
 
     public void dispose() {

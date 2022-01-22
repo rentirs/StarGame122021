@@ -18,7 +18,7 @@ public class Hero extends Ship {
         WEAPON(100),
         MAGNET(50, 10);
 
-        int cost;
+        final int cost;
         int power;
         Skill(int cost) {
             this.cost = cost;
@@ -32,10 +32,10 @@ public class Hero extends Ship {
 
     private int score;
     private int scoreView;
-    private Circle magneticField;
-    private StringBuilder sb;
+    private final Circle magneticField;
+    private final StringBuilder sb;
     private int money;
-    private Shop shop;
+    private final Shop shop;
 
     public Circle getMagneticField() {
         return magneticField;
@@ -72,12 +72,12 @@ public class Hero extends Ship {
     public Hero(GameController gc) {
         super(gc, 100, 500);
         this.shop = new Shop(this);
-        this.position = new Vector2(ScreenManager.SCREEN_WIDTH / 2, ScreenManager.SCREEN_HEIGHT / 2);
+        this.position = new Vector2(ScreenManager.SCREEN_WIDTH / 2.0f, ScreenManager.SCREEN_HEIGHT / 2.0f);
         this.velocity = new Vector2();
         this.sb = new StringBuilder();
         this.magneticField = new Circle(position, 100);
         this.money = 150;
-        this.texture = Assets.getInstance().getAtlas().findRegion("ship");
+        this.texture = Assets.getInstance().getAtlas().findRegion("ship2");
         this.hitArea = new Circle(position, 29);
         this.ownerType = OwnerType.PLAYER;
     }
