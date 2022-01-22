@@ -9,7 +9,7 @@ import com.star.app.screen.utils.Assets;
 public class Bot extends Ship implements Poolable {
 
     private boolean active;
-    private Vector2 tempVec;
+    private final Vector2 tempVec;
 
     @Override
     public boolean isActive() {

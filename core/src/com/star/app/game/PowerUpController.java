@@ -7,16 +7,14 @@ import com.star.app.game.helpers.ObjectPool;
 import com.star.app.screen.utils.Assets;
 
 public class PowerUpController extends ObjectPool<PowerUp> {
-    private GameController gc;
-    private TextureRegion[][] textures;
+    private final TextureRegion[][] textures;
 
     @Override
     protected PowerUp newObject() {
-        return new PowerUp(gc);
+        return new PowerUp();
     }
 
-    public PowerUpController(GameController gc) {
-        this.gc = gc;
+    public PowerUpController() {
         this.textures = new TextureRegion(Assets.getInstance().getAtlas().findRegion("powerups"))
                 .split(60, 60);
     }

@@ -6,15 +6,15 @@ import com.badlogic.gdx.math.Vector3;
 import com.star.app.screen.utils.Assets;
 
 public class Weapon {
-    private GameController gameController;
-    private Ship ship;
-    private float firePeriod;
-    private int damage;
-    private float bulletSpeed;
-    private int maxBullets;
+    private final GameController gameController;
+    private final Ship ship;
+    private final float firePeriod;
+    private final int damage;
+    private final float bulletSpeed;
+    private final int maxBullets;
     private int curBullets;
-    private Vector3[] slots;
-    private Sound shootSound;
+    private final Vector3[] slots;
+    private final Sound shootSound;
 
     public float getFirePeriod() {
         return firePeriod;
@@ -32,7 +32,7 @@ public class Weapon {
         return curBullets;
     }
 
-    public Weapon(GameController gameController, Ship ship, String title, float firePeriod, int damage,
+    public Weapon(GameController gameController, Ship ship, float firePeriod, int damage,
                   float bulletSpeed, int maxBullets, Vector3[] slots) {
         this.gameController = gameController;
         this.ship = ship;

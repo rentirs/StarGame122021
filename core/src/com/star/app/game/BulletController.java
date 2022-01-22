@@ -6,8 +6,8 @@ import com.star.app.game.helpers.ObjectPool;
 import com.star.app.screen.utils.Assets;
 
 public class BulletController extends ObjectPool<Bullet> {
-    private TextureRegion bulletTexture;
-    private GameController gameController;
+    private final TextureRegion bulletTexture;
+    private final GameController gameController;
 
     @Override
     protected Bullet newObject() {

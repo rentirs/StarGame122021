@@ -5,10 +5,10 @@ import com.star.app.game.helpers.Poolable;
 import com.star.app.screen.ScreenManager;
 
 public class Bullet implements Poolable {
-    private Vector2 position;
-    private Vector2 velocity;
+    private final Vector2 position;
+    private final Vector2 velocity;
     private boolean active;
-    private GameController gameController;
+    private final GameController gameController;
     private Ship owner;
 
     public Ship getOwner()  {

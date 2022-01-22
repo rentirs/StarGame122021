@@ -10,16 +10,16 @@ import com.star.app.screen.ScreenManager;
 import com.star.app.screen.utils.Assets;
 
 public class Asteroid implements Poolable {
-    private GameController gameController;
-    private TextureRegion texture;
-    private Vector2 position;
-    private Vector2 velocity;
+    private final GameController gameController;
+    private final TextureRegion texture;
+    private final Vector2 position;
+    private final Vector2 velocity;
     private boolean active;
     private int hpMax;
     private int hp;
     private float angle;
     private float rotationSpeed;
-    private Circle hitArea;
+    private final Circle hitArea;
     private float scale;
 
     private final float BASE_SIZE = 256;
