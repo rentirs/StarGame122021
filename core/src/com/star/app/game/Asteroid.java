@@ -28,9 +28,6 @@ public class Asteroid implements Poolable {
     public int getHpMax() {
         return hpMax;
     }
-    public int getHp() {
-        return hp;
-    }
     public Circle getHitArea() {
         return hitArea;
     }
@@ -110,7 +107,7 @@ public class Asteroid implements Poolable {
         position.set(x, y);
         velocity.set(vx, vy);
         active = true;
-        hpMax = (int) (10 * scale);
+        hpMax = (int) (8 * scale + gameController.getLevel() * 2);
         hp = hpMax;
         angle = MathUtils.random(0.0f, 360.0f);
         rotationSpeed = MathUtils.random(-180.0f, 180.0f);

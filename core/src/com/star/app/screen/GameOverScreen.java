@@ -4,12 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.star.app.game.Background;
@@ -44,7 +38,7 @@ public class GameOverScreen extends AbstractScreen {
 
     public void update(float dt) {
         background.update(dt);
-        if(Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
+        if(Gdx.input.isKeyPressed(Input.Keys.Q)){
             ScreenManager.getInstance().changeScreen(ScreenManager.ScreenType.MENU);
         }
     }
@@ -60,7 +54,7 @@ public class GameOverScreen extends AbstractScreen {
         stringBuilder.append("SCORE: ").append(defeatedHero.getScore()).append("\n");
         stringBuilder.append("MONEY: ").append(defeatedHero.getMoney()).append("\n");
         font48.draw(batch, stringBuilder, 0, 400, 1280, Align.center, false);
-        font24.draw(batch, "Press any key...", 0, 60, 1280, Align.center, false);
+        font24.draw(batch, "Press Q to exit to main menu", 0, 60, 1280, Align.center, false);
         batch.end();
     }
 

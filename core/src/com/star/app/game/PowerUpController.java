@@ -22,9 +22,8 @@ public class PowerUpController extends ObjectPool<PowerUp> {
     }
 
     public void render(SpriteBatch batch) {
-        for (int i = 0; i < activeList.size(); i++) {
-            PowerUp p = activeList.get(i);
-            int frameIndex = (int)(p.getTime() / 0.1f) % textures[p.getType().index].length;
+        for (PowerUp p : activeList) {
+            int frameIndex = (int) (p.getTime() / 0.1f) % textures[p.getType().index].length;
             batch.draw(textures[p.getType().index][frameIndex], p.getPosition().x - 30, p.getPosition().y - 30);
         }
     }
@@ -36,8 +35,8 @@ public class PowerUpController extends ObjectPool<PowerUp> {
     }
 
     public void update(float dt) {
-        for (int i = 0; i < activeList.size(); i++) {
-            activeList.get(i).update(dt);
+        for (PowerUp powerUp : activeList) {
+            powerUp.update(dt);
         }
         checkPool();
     }
