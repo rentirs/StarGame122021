@@ -16,8 +16,7 @@ public class AsteroidController extends ObjectPool<Asteroid> {
     }
 
     public void render(SpriteBatch batch) {
-        for (int i = 0; i < activeList.size(); i++) {
-            Asteroid asteroid = activeList.get(i);
+        for (Asteroid asteroid : activeList) {
             asteroid.render(batch);
         }
     }
@@ -27,8 +26,8 @@ public class AsteroidController extends ObjectPool<Asteroid> {
     }
 
     public void update(float dt) {
-        for (int i = 0; i < activeList.size(); i++) {
-            activeList.get(i).update(dt);
+        for (Asteroid asteroid : activeList) {
+            asteroid.update(dt);
         }
         checkPool();
     }

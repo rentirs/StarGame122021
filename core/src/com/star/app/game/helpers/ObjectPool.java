@@ -23,8 +23,8 @@ public abstract class ObjectPool<T extends Poolable> {
     }
 
     public ObjectPool() {
-        this.activeList = new ArrayList<T>();
-        this.freeList = new ArrayList<T>();
+        this.activeList = new ArrayList<>();
+        this.freeList = new ArrayList<>();
     }
 
     // Запрашиваем элемент для работы. Если пул свободных элементов пуст, то в нем

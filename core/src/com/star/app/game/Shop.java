@@ -55,7 +55,7 @@ public class Shop extends Group {
                 }
             }
         });
-        btnHpMax.setPosition(20, 300);
+        btnHpMax.setPosition(20, 310);
         this.addActor(btnHpMax);
 
         final TextButton btnHp = new TextButton("Hp", textButtonStyle);
@@ -69,7 +69,7 @@ public class Shop extends Group {
                 }
             }
         });
-        btnHp.setPosition(20, 200);
+        btnHp.setPosition(20, 210);
         this.addActor(btnHp);
 
         final TextButton btnWeapon = new TextButton("Weapon", textButtonStyle);
@@ -83,8 +83,22 @@ public class Shop extends Group {
                 }
             }
         });
-        btnWeapon.setPosition(20, 100);
+        btnWeapon.setPosition(20, 110);
         this.addActor(btnWeapon);
+
+        final TextButton btnMagnet = new TextButton("Magnet", textButtonStyle);
+        btnMagnet.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (hero.isMoneyEnough(Hero.Skill.MAGNET.cost)) {
+                    if (hero.upgrade(Hero.Skill.MAGNET)) {
+                        hero.decreaseMoney(Hero.Skill.MAGNET.cost);
+                    }
+                }
+            }
+        });
+        btnMagnet.setPosition(20, 10);
+        this.addActor(btnMagnet);
 
         this.setPosition(20, 20);
         this.setVisible(false);
